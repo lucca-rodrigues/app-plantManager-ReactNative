@@ -1,6 +1,7 @@
 import React from 'react';
 import { Welcome } from './src/pages/welcome';
 import { UserIdentification } from './src/pages/userIdentification';
+import { Confirmation } from './src/pages/confirmation';
 import AppLoading from 'expo-app-loading';
 
 import {
@@ -18,6 +19,6 @@ export default function App() {
   if(!fontsLoaded) return <AppLoading />
 
   return (
-    <UserIdentification/>
+    <Confirmation/>
   );
 }
