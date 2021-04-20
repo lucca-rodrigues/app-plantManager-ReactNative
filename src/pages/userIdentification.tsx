@@ -1,6 +1,17 @@
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { View, Text, TextInput, StyleSheet, SafeAreaView, KeyboardAvoidingView, Platform, Dimensions } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  SafeAreaView,
+  KeyboardAvoidingView,
+  Platform,
+  Dimensions,
+  TouchableWithoutFeedback,
+  Keyboard
+ } from 'react-native';
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
 
@@ -33,32 +44,35 @@ export function UserIdentification() {
         style={styles.container}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         >
-        <View style={styles.content}>
-          <View style={styles.form}>
-            <View style={styles.body}>
-              <Text style={styles.emoji}>
-                {isFilled ? '😄' : '🙂'}
-              </Text>
-              <Text style={styles.title}>
-                Como podemos {'\n'}
-                chamar você?
-              </Text>
-              <TextInput
-                style={[
-                  styles.input,
-                  (isFocused || isFilled) && { borderColor: colors.green }
-                ]}
-                placeholder="Your name"
-                onBlur={handleInputBlur}
-                onFocus={handleInputFocus}
-                onChangeText={handleInputChange}
-              />
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View style={styles.content}>
+              <View style={styles.form}>
+                <View style={styles.body}>
+                  <Text style={styles.emoji}>
+                    {isFilled ? '😄' : '🙂'}
+                  </Text>
+                  <Text style={styles.title}>
+                    Como podemos {'\n'}
+                    chamar você?
+                  </Text>
+                  <TextInput
+                    style={[
+                      styles.input,
+                      (isFocused || isFilled) && { borderColor: colors.green }
+                    ]}
+                    placeholder="Your name"
+                    onBlur={handleInputBlur}
+                    onFocus={handleInputFocus}
+                    onChangeText={handleInputChange}
+                  />
+                </View>
+                <View style={styles.footer}>
+                  <Button title="Confirmar" onPress={() => navigation.navigate('Confirmation')}/>
+                </View>
+              </View>
             </View>
-            <View style={styles.footer}>
-              <Button title="Confirmar" onPress={() => navigation.navigate('Confirmation')}/>
-            </View>
-          </View>
-        </View>
+
+          </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
     </SafeAreaView>
   )
