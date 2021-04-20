@@ -1,12 +1,14 @@
 import React from 'react';
 import { Feather } from '@expo/vector-icons';
 import { Text, View, Image, StyleSheet, SafeAreaView, TouchableOpacity, Dimensions } from 'react-native';
+import { useNavigation } from '@react-navigation/core';
 
 import watteringImg from '../assets/watering.png';
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
 
 export function Welcome() {
+  const navigation = useNavigation();
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.wrapper}>
@@ -27,6 +29,7 @@ export function Welcome() {
         <TouchableOpacity
           style={styles.button}
           activeOpacity={0.8}
+          onPress={() => navigation.navigate('UserIdentification')}
         >
           <Feather name="chevron-right" style={styles.buttonIcon}/>
         </TouchableOpacity>
@@ -71,7 +74,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     marginBottom: 10,
     height: 56,
-    width: '100%',
+    width: 56,
     paddingHorizontal: 10
   },
   buttonIcon: {

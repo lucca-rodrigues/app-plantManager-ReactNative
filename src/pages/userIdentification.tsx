@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { View, Text, TextInput, StyleSheet, SafeAreaView, KeyboardAvoidingView, Platform, Dimensions } from 'react-native';
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
@@ -6,6 +7,8 @@ import fonts from '../styles/fonts';
 import {Button} from '../components/button';
 
 export function UserIdentification() {
+  const navigation = useNavigation();
+
   const [isFocused, setIsFocused] = useState(false);
   const [isFilled, setIsFilled] = useState(false);
   const [name, setName] = useState<string>();
@@ -52,7 +55,7 @@ export function UserIdentification() {
               />
             </View>
             <View style={styles.footer}>
-              <Button title="Confirmar"/>
+              <Button title="Confirmar" onPress={() => navigation.navigate('Confirmation')}/>
             </View>
           </View>
         </View>
