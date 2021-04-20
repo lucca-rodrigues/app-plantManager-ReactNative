@@ -1,18 +1,12 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { Feather } from '@expo/vector-icons';
 import { Text, View, Image, StyleSheet, SafeAreaView, TouchableOpacity, Dimensions } from 'react-native';
 
-import { Button } from '../components/button';
 import watteringImg from '../assets/watering.png';
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
 
 export function Welcome() {
-  const [visible, setVisible] = useState(false);
-
-  function handleVisibility() {
-    setVisible(!visible);
-  }
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.wrapper}>
@@ -26,7 +20,6 @@ export function Welcome() {
           style={styles.image}
           resizeMode="contain"
         />
-        {visible && <Text>Estou visível!</Text>}
         <Text style={styles.subtitle}>
           Não esqueça mais de regar suas plantas.
           Nós cuidamos de lembrar você sempre que precisar.
@@ -78,7 +71,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     marginBottom: 10,
     height: 56,
-    width: 56,
+    width: '100%',
     paddingHorizontal: 10
   },
   buttonIcon: {
