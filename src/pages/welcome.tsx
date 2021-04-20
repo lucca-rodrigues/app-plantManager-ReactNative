@@ -1,9 +1,11 @@
 import React, {useState} from 'react';
-import { Text, Image, StyleSheet, SafeAreaView } from 'react-native';
+import { Feather } from '@expo/vector-icons';
+import { Text, View, Image, StyleSheet, SafeAreaView, TouchableOpacity, Dimensions } from 'react-native';
 
-import watteringImg from '../assets/watering.png';
 import { Button } from '../components/button';
+import watteringImg from '../assets/watering.png';
 import colors from '../styles/colors';
+import fonts from '../styles/fonts';
 
 export function Welcome() {
   const [visible, setVisible] = useState(false);
@@ -13,18 +15,30 @@ export function Welcome() {
   }
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>
-        Gerencie {'\n'}
-        suas plantas {'\n'}
-        de forma fácil
-      </Text>
-      <Image source={watteringImg} style={styles.image}/>
-      {visible && <Text>Estou visível!</Text>}
-      <Text style={styles.subtitle}>
-        Não esqueça mais de regar suas plantas.
-        Nós cuidamos de lembrar você sempre que prcisar.
-      </Text>
-      <Button title="Avançar" onPress={handleVisibility}/>
+      <View style={styles.wrapper}>
+        <Text style={styles.title}>
+          Gerencie {'\n'}
+          suas plantas de {'\n'}
+          forma fácil
+        </Text>
+        <Image
+          source={watteringImg}
+          style={styles.image}
+          resizeMode="contain"
+        />
+        {visible && <Text>Estou visível!</Text>}
+        <Text style={styles.subtitle}>
+          Não esqueça mais de regar suas plantas.
+          Nós cuidamos de lembrar você sempre que precisar.
+        </Text>
+        <TouchableOpacity
+          style={styles.button}
+          activeOpacity={0.8}
+        >
+          <Feather name="chevron-right" style={styles.buttonIcon}/>
+        </TouchableOpacity>
+
+      </View>
     </SafeAreaView>
   )
 }
@@ -32,23 +46,43 @@ export function Welcome() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  wrapper: {
+    flex: 1,
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'space-around',
+    paddingHorizontal: 20
   },
   title: {
-    fontSize: 30,
+    fontSize: 28,
     fontWeight: 'bold',
     textAlign: 'center',
     color: colors.heading,
+    fontFamily: fonts.heading,
+    lineHeight: 34
   },
   subtitle: {
     textAlign: 'center',
     fontSize: 18,
     paddingHorizontal: 20,
     color: colors.heading,
+    fontFamily: fonts.text,
   },
   image: {
-    width: 292,
-    height: 284,
-  }
+    height: Dimensions.get('window').width * 0.7,
+  },
+  button: {
+    backgroundColor: colors.green,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 16,
+    marginBottom: 10,
+    height: 56,
+    width: 56,
+    paddingHorizontal: 10
+  },
+  buttonIcon: {
+    fontSize: 32,
+    color: colors.white,
+  },
 });
