@@ -6,7 +6,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "start:server": "json-server ./src/services/server.json --host 192.168.0.103 --port 3333 --delay 800"
+    "dev:server": "json-server ./src/services/server.json --host IPHERE --port 3333 --delay 800"
   },
   "dependencies": {
     "@expo-google-fonts/jost": "^0.1.0",
