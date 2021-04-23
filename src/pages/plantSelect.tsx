@@ -1,37 +1,25 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, Text, View, FlatList, ActivityIndicator } from 'react-native';
 import { FilterEnvironment } from '../components/filterEnvironment';
 import { Header } from '../components/header';
 import api from '../services/api';
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
-import { PlantCard } from "../components/plantCard";
-import { Loader } from "../components/loader";
-import { useNavigation } from '@react-navigation/native';
+import { PlantCard } from '../components/plantCard';
+import { PlantProps } from '../libs/storage';
+import { Loader } from '../components/loader';
 
 interface FilterEnvironmentProps {
   key: string;
   title: string;
 }
 
-interface PlantsProps {
-  id: number;
-  name: string;
-  about: string;
-  water_tips: string;
-  photo: string;
-  environments: [string];
-  frequency: {
-    times: number;
-    repeat_every: string;
-  };
-}
-
 export function PlantSelect() {
   const navigation = useNavigation();
   const [environments, setEnvironments] = useState<FilterEnvironmentProps[]>([]);
-  const [plants, setPlants] = useState<PlantsProps[]>([]);
-  const [filteredPlants, setFilteredPlants] = useState<PlantsProps[]>([]);
+  const [plants, setPlants] = useState<PlantProps[]>([]);
+  const [filteredPlants, setFilteredPlants] = useState<PlantProps[]>([]);
   const [environmentSelected, setEnvironmentSelected] = useState('all');
   const [loading, setLoading] = useState(true);
 
@@ -77,7 +65,7 @@ export function PlantSelect() {
     fetchPlants();
   }
 
-  function handlePlantSelect(plant: PlantsProps){
+  function handlePlantSelect(plant: PlantProps){
     navigation.navigate('PlantDetails', { plant });
   }
 

@@ -55,7 +55,7 @@ export async function savePlant(plant: PlantProps): Promise<void> {
           plant
         },
       },
-      trigger: { // Quando é executada
+      trigger: { // Quando é
         seconds: seconds < 60 ? 60 : seconds,
         repeats: true
       }

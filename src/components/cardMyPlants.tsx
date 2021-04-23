@@ -1,10 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Animated, StyleSheet, Text, View } from 'react-native';
 import { RectButton, RectButtonProps, Swipeable } from 'react-native-gesture-handler';
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
 import { SvgFromUri } from 'react-native-svg'
-import Animated from 'react-native-reanimated';
 import { Feather } from '@expo/vector-icons';
 
 interface PlantProps extends RectButtonProps {
