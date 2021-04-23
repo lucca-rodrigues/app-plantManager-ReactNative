@@ -34,9 +34,8 @@ This project was developed using the following technologies:
 - [Expo](https://expo.io/)
 - [TypeScript](https://www.typescriptlang.org/)
 
-
-# app-plantManager-ReactNative
-
+# Install
+Rodar ```sh yarn``` Ou ```sh npm install``` para instalar a aplicação
 # Start
 Rodar ```sh expo start``` para startar a aplicação
 
