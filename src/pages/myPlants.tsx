@@ -1,19 +1,43 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, Image, Text, FlatList } from 'react-native';
-import { Header } from '../components/header';
-import colors from '../styles/colors';
-
-import waterdrop from '../assets/waterdrop.png'
-import { loadPlant, PlantProps } from '../libs/storage';
-import { formatDistance } from 'date-fns';
 import { pt } from 'date-fns/locale';
 import fonts from '../styles/fonts';
+import colors from '../styles/colors';
+import { StyleSheet, View, Image, Text, FlatList, Alert } from 'react-native';
+import { Header } from '../components/header';
+
+import waterdrop from '../assets/waterdrop.png'
+import { loadPlant, PlantProps, removePlant } from '../libs/storage';
+import { ScrollView } from 'react-native-gesture-handler';
+import { formatDistance } from 'date-fns';
 import { CardMyPlants } from '../components/cardMyPlants';
+import { Loader } from '../components/loader';
 
 export function MyPlants() {
   const [myPlants, setMyPlants] = useState<PlantProps[]>([]);
   const [loading, setLoading] = useState(true);
   const [nextWatered, setNextWatered] = useState<string>();
+
+  function handleRemove(plant: PlantProps) {
+    Alert.alert('Remover', `Deseja remover a ${plant.name}?`, [
+      {
+        text: 'Não 🙏',
+        style: 'cancel'
+      },
+      {
+        text: 'Sim 😢',
+        onPress: async() => {
+          try {
+            await removePlant(plant.id)
+            setMyPlants(oldValue =>
+              oldValue.filter(item => item.id !== plant.id)
+            );
+          } catch (error) {
+            Alert.alert('Não foi possível remover! 😢')
+          }
+        }
+      }
+    ])
+  }
 
   useEffect(() => {
     async function loadStorageData() {
@@ -35,31 +59,43 @@ export function MyPlants() {
     loadStorageData()
   }, [])
 
+  if (loading) {
+    return <Loader />
+  }
+
   return (
-    <View style={styles.container}>
-      <Header />
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      // contentContainerStyle={styles.container}
+    >
+      <View style={styles.container}>
+        <Header />
 
-      <View style={styles.spotlight}>
-        <Image source={waterdrop} style={styles.spotlightImage} />
-        <Text style={styles.spotlightText}>{nextWatered}</Text>
+        <View style={styles.spotlight}>
+          <Image source={waterdrop} style={styles.spotlightImage} />
+          <Text style={styles.spotlightText}>{nextWatered}</Text>
+        </View>
+
+        <View style={styles.plants}>
+          <Text style={styles.plantsTitle}>
+            Próximas regadas
+          </Text>
+
+          <FlatList
+            data={myPlants}
+            keyExtractor={item => String(item.id)}
+            renderItem={({ item }) => (
+              <CardMyPlants
+                data={item}
+                handleRemove={() => handleRemove(item)}
+              />
+            )}
+            showsVerticalScrollIndicator={false}
+            // contentContainerStyle={{ flex: 1 }}
+          />
+        </View>
       </View>
-
-      <View style={styles.plants}>
-        <Text style={styles.plantsTitle}>
-          Próximas regadas
-        </Text>
-
-        <FlatList
-          data={myPlants}
-          keyExtractor={item => String(item.id)}
-          renderItem={({ item }) => (
-            <CardMyPlants data={item} />
-          )}
-          showsVerticalScrollIndicator={false}
-          // contentContainerStyle={{ flex: 1 }}
-        />
-      </View>
-    </View>
+    </ScrollView>
 
   );
 }
